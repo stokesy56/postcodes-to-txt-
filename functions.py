@@ -10,9 +10,12 @@ def postcode_info(postcode):
         return 'The URL entered is invalid. Please enter a valid UK postcode'
 
 def write_postcode_info_to_text(file, postcode):
-    try:
-        with open(file, 'w') as outfile:
-            json.dump(postcode_info(postcode), outfile)
-        return f'The postcode info has been added to {file}'
-    except FileNotFoundError:
-        return 'File not found'
+    if postcode_info(postcode) != 'The URL entered is invalid. Please enter a valid UK postcode':
+        try:
+            with open(file, 'w') as outfile:
+                json.dump(postcode_info(postcode), outfile)
+                return f'The postcode info has been added to {file}'
+        except FileNotFoundError:
+            return 'File not found'
+    else:
+        return postcode_info(postcode)
